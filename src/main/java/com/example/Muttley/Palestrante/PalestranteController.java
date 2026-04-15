@@ -1,4 +1,4 @@
-package com.example.Muttley.Palestrante*;
+package com.example.Muttley.Palestrante;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

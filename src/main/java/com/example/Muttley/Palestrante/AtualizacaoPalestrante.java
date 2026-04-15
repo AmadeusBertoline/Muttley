@@ -12,7 +12,7 @@ public record AtualizacaoPalestrante(
     String telefone,
 
     @NotBlank(message = "CPF é obrigatório")
-    String CPF
+    String cpf
 ) {
 	
 }

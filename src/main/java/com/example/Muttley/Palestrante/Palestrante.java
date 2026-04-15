@@ -24,7 +24,7 @@ public class Palestrante {
 
     private String nome;
     private String telefone;
-    private String CPF;
+    private String cpf;
 
     // Atualização manual (igual ao Caminhao)
     public void atualizarInformacoes(AtualizacaoPalestrante dados) {
@@ -34,7 +34,7 @@ public class Palestrante {
         if (dados.telefone() != null)
             this.telefone = dados.telefone();
 
-        if (dados.CPF() != null)
-            this.CPF = dados.CPF();
+        if (dados.cpf() != null)
+            this.cpf = dados.cpf();
     }
 }
