@@ -6,15 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "palestrante")
@@ -24,14 +16,25 @@ import jakarta.persistence.Table;
 @AllArgsConstructor
 @EqualsAndHashCode(of ="id")
 public class Palestrante {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "palestrante_id")
-	private Long id;
-	private String nome;
-	private String telefone;
-	private String CPF;
-	
-	
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "palestrante_id")
+    private Long id;
+
+    private String nome;
+    private String telefone;
+    private String CPF;
+
+    // Atualização manual (igual ao Caminhao)
+    public void atualizarInformacoes(AtualizacaoPalestrante dados) {
+        if (dados.nome() != null)
+            this.nome = dados.nome();
+
+        if (dados.telefone() != null)
+            this.telefone = dados.telefone();
+
+        if (dados.CPF() != null)
+            this.CPF = dados.CPF();
+    }
 }
