@@ -1,4 +1,4 @@
-package com.example.Muttley.Aluno;
+package com.example.Muttley.aluno;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,6 +28,6 @@ public class Aluno {
 	private String nome;
 	private String curso;
 	private String email;
-	//teste
+	//tes
 
 }

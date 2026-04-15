@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Alunos - Palestras</title>
+    <style>
+        body { font-family: sans-serif; margin: 50px; background-color: #121212; color: white; }
+        table { width: 100%; border-collapse: collapse; background: #1e1e1e; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #333; }
+        th { background-color: #2b2b2b; color: #4CAF50; }
+        tr:hover { background-color: #252525; }
+        .btn-novo { background-color: #4CAF50; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; display: inline-block; margin-bottom: 20px; }
+        .btn-excluir { color: #ff6b6b; text-decoration: none; font-weight: bold; }
+        .btn-excluir:hover { text-decoration: underline; }
+        .mensagem { color: #4CAF50; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h2>Alunos Inscritos nas Palestras</h2>
+
+    <div class="mensagem" th:if="${message}" th:text="${message}"></div>
+
+    <a th:href="@{/aluno/cadastro-aluno}" class="btn-novo">+ Novo Aluno</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Curso</th>
+                <th>E-mail</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="aluno : ${listaAlunos}">
+                <td th:text="${aluno.id}"></td>
+                <td th:text="${aluno.nome}"></td>
+                <td th:text="${aluno.curso}"></td>
+                <td th:text="${aluno.email}"></td>
+                <td>
+                    <a th:href="@{/aluno/delete/{id}(id=${aluno.id})}" 
+                       class="btn-excluir" 
+                       onclick="return confirm('Deseja realmente excluir este aluno?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p th:if="${#lists.isEmpty(listaAlunos)}">Nenhum aluno cadastrado no momento.</p>
+</body>
+</html>
