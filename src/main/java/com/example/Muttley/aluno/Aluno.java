@@ -1,4 +1,4 @@
-package com.example.Muttley.Aluno;
+package com.example.Muttley.aluno;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
