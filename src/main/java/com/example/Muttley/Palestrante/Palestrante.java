@@ -22,11 +22,17 @@ public class Palestrante {
 	@Column(name = "palestrante_id")
 	private Long id;
 
+
 	private String nome;
 	private String telefone;
 	private String CPF;
 
-	// Atualização manual (igual ao Caminhao)
+    private String nome;
+    private String telefone;
+    private String cpf;
+
+
+	// Atualização manual (igual ao Caminhao
 	public void atualizarInformacoes(AtualizacaoPalestrante dados) {
 		if (dados.nome() != null)
 			this.nome = dados.nome();
@@ -34,7 +40,13 @@ public class Palestrante {
 		if (dados.telefone() != null)
 			this.telefone = dados.telefone();
 
+
 		if (dados.CPF() != null)
 			this.CPF = dados.CPF();
 	}
+
+        if (dados.cpf() != null)
+            this.cpf = dados.cpf();
+    }
+
 }

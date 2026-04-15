@@ -10,4 +10,10 @@ public record AtualizacaoPalestrante(Long id,
 
 		@NotBlank(message = "CPF é obrigatório") String CPF) {
 
+
+    @NotBlank(message = "CPF é obrigatório")
+    String cpf
+) {
+	
+
 }
