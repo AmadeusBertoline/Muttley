@@ -1,0 +1,67 @@
+package com.example.Muttley.Palestrante*;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
+
+@Controller
+@RequestMapping("/palestrante")
+public class PalestranteController {
+
+    @Autowired
+    private PalestranteService service;
+
+    @Autowired
+    private PalestranteMapper mapper;
+
+    // LISTAGEM
+    @GetMapping
+    public String listar(Model model) {
+        model.addAttribute("listaPalestrantes", service.procurarTodos());
+        return "palestrante/listagem";
+    }
+
+    // FORMULÁRIO
+    @GetMapping("/formulario")
+    public String formulario(@RequestParam(required = false) Long id, Model model) {
+
+        AtualizacaoPalestrante dto;
+
+        if (id != null) {
+            Palestrante p = service.procurarPorId(id)
+                .orElseThrow(() -> new EntityNotFoundException("Palestrante não encontrado"));
+
+            dto = mapper.toDTO(p);
+        } else {
+            dto = new AtualizacaoPalestrante(null, "", "", "");
+        }
+
+        model.addAttribute("palestrante", dto);
+        return "palestrante/formulario";
+    }
+
+    // SALVAR
+    @PostMapping("/salvar")
+    public String salvar(@ModelAttribute("palestrante") @Valid AtualizacaoPalestrante dto,
+                         BindingResult result) {
+
+        if (result.hasErrors()) {
+            return "palestrante/formulario";
+        }
+
+        service.salvarOuAtualizar(dto);
+        return "redirect:/palestrante";
+    }
+
+    // DELETE
+    @GetMapping("/delete/{id}")
+    public String deletar(@PathVariable Long id) {
+        service.apagarPorId(id);
+        return "redirect:/palestrante";
+    }
+}
