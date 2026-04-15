@@ -7,14 +7,14 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface PalestranteMapper {
 
-    // Entity → DTO
-    AtualizacaoPalestrante toDTO(Palestrante palestrante);
+	// Entity → DTO
+	AtualizacaoPalestrante toDTO(Palestrante palestrante);
 
-    // DTO → Entity (novo)
-    @Mapping(target = "id", ignore = true)
-    Palestrante toEntity(AtualizacaoPalestrante dto);
+	// DTO → Entity (novo)
+	@Mapping(target = "id", ignore = true)
+	Palestrante toEntity(AtualizacaoPalestrante dto);
 
-    // Atualizar existente
-    @Mapping(target = "id", ignore = true)
-    void updateEntityFromDto(AtualizacaoPalestrante dto, @MappingTarget Palestrante palestrante);
+	// Atualizar existente
+	@Mapping(target = "id", ignore = true)
+	void updateEntityFromDto(AtualizacaoPalestrante dto, @MappingTarget Palestrante palestrante);
 }

@@ -14,27 +14,27 @@ import jakarta.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of ="id")
+@EqualsAndHashCode(of = "id")
 public class Palestrante {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "palestrante_id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "palestrante_id")
+	private Long id;
 
-    private String nome;
-    private String telefone;
-    private String CPF;
+	private String nome;
+	private String telefone;
+	private String CPF;
 
-    // Atualização manual (igual ao Caminhao)
-    public void atualizarInformacoes(AtualizacaoPalestrante dados) {
-        if (dados.nome() != null)
-            this.nome = dados.nome();
+	// Atualização manual (igual ao Caminhao)
+	public void atualizarInformacoes(AtualizacaoPalestrante dados) {
+		if (dados.nome() != null)
+			this.nome = dados.nome();
 
-        if (dados.telefone() != null)
-            this.telefone = dados.telefone();
+		if (dados.telefone() != null)
+			this.telefone = dados.telefone();
 
-        if (dados.CPF() != null)
-            this.CPF = dados.CPF();
-    }
+		if (dados.CPF() != null)
+			this.CPF = dados.CPF();
+	}
 }
