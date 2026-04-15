@@ -38,23 +38,26 @@ public class AlunoController {
 		model.addAttribute("listaAlunos", alunoService.procurarTodos());
         return "aluno/listagem";              
 	} 
+	
+	@GetMapping("/login")
+	public String telaLogin() {
+	    return "aluno/login"; // Procura o arquivo login.html na pasta templates/aluno/
+	}
 
-	@GetMapping("/formulario")
-    public String mostrarFormulario(@RequestParam(required = false) Long id, Model model) {
-		AtualizacaoAluno dto;
-        if (id != null) {
-            // Edição: Carrega dados existentes
-            Aluno aluno = alunoService.procurarPorId(id)
-                .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
-            dto = alunoMapper.toAtualizacaoDto(aluno);
-        } else {
-            // Criação: DTO vazio (ajuste os campos conforme o seu construtor de AtualizacaoAluno)
-            dto = new AtualizacaoAluno(null, 0, 0, 0, ""); 
-        }
-        model.addAttribute("aluno", dto);
-        // model.addAttribute("cursos", cursoService.procurarTodos()); // Se houver cursos cadastrados
-        return "aluno/formulario";
-    }
+	@GetMapping("/cadastro-aluno")
+	public String mostrarFormulario(@RequestParam(required = false) Long id, Model model) {
+	    AtualizacaoAluno dto;
+	    if (id != null) {
+	        Aluno aluno = alunoService.procurarPorId(id)
+	            .orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado"));
+	        dto = alunoMapper.toAtualizacaoDto(aluno);
+	    } else {
+	        // AJUSTE AQUI: Trocamos os 0 (ints) por "" (Strings)
+	        dto = new AtualizacaoAluno(null, "", "", ""); 
+	    }
+	    model.addAttribute("aluno", dto);
+	    return "aluno/cadastro";
+	}
 	
 	@GetMapping ("/formulario/{id}")    
 	public String carregaPaginaFormulario (@PathVariable("id") Long id, Model model,

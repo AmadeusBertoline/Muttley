@@ -35,7 +35,7 @@ public class AlunoService {
     
     public List<Aluno> procurarTodos(){
         // Ordena por material (ou outro campo que você preferir, como "id")
-        return alunoRepository.findAll(Sort.by("material").ascending());
+        return alunoRepository.findAll(Sort.by("nome").ascending());
     }
 
     public void apagarPorId (Long id) {
