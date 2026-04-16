@@ -1,39 +1,53 @@
 package com.example.Muttley.instituicao;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class InstituicaoService {
 
     @Autowired
-    private InstituicaoRepository repository;
+    private InstituicaoRepository instituicaoRepository;
 
-    // Salvar ou Atualizar
-    public void salvar(Instituicao instituicao) {
-        repository.save(instituicao);
+    @Autowired
+    private InstituicaoMapper instituicaoMapper;
+
+    public Instituicao salvarOuAtualizar(AtualizacaoInstituicao dto) {
+        if (dto.id() != null) {
+            // ATUALIZAÇÃO: Busca a instituição existente e aplica as mudanças do DTO via Mapper
+            Instituicao existente = instituicaoRepository.findById(dto.id())
+                    .orElseThrow(() -> new EntityNotFoundException("Instituição não encontrada com ID: " + dto.id()));
+
+            instituicaoMapper.updateEntityFromDto(dto, existente);
+            return instituicaoRepository.save(existente);
+        } else {
+            // CRIAÇÃO: Converte o DTO em uma nova entidade Instituicao
+            Instituicao novaInstituicao = instituicaoMapper.toEntityFromAtualizacao(dto);
+            return instituicaoRepository.save(novaInstituicao);
+        }
     }
 
-    // Listar todas (usado no card enquanto não temos a sessão de login)
     public List<Instituicao> listarTodos() {
-        return repository.findAll();
+        // Ordena por nome para facilitar a visualização na listagem
+        return instituicaoRepository.findAll(Sort.by("nome").ascending());
     }
 
-    // Buscar por ID para a Edição
-    public Optional<Instituicao> buscarPorId(Long id) {
-        return repository.findById(id);
-    }
-
-    // Excluir Instituição
     public void excluir(Long id) {
-        repository.deleteById(id);
+        instituicaoRepository.deleteById(id);
     }
 
-    // Lógica de Login da Instituição
+    public Optional<Instituicao> buscarPorId(Long id) {
+        return instituicaoRepository.findById(id);
+    }
+    
     public Optional<Instituicao> realizarLogin(String email, String senha) {
-        return repository.findByEmail(email)
+        return instituicaoRepository.findByEmail(email)
                 .filter(inst -> inst.getSenha() != null && inst.getSenha().equals(senha));
     }
 }
