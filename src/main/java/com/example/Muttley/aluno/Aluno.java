@@ -30,6 +30,6 @@ public class Aluno {
 	private String email;
 	private String senha;
 	private String linkedin;
-	// tes
+	// te
 
 }
